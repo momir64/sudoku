@@ -21,7 +21,7 @@
     <ClCompile Include="Sudoku9.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConsoleMenu.cpp">
+    <ClCompile Include="SudokuConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SudokuFileIO.cpp">
@@ -41,7 +41,7 @@
     <ClInclude Include="Sudoku9.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConsoleMenu.h">
+    <ClInclude Include="SudokuConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SudokuFileIO.h">

@@ -32,7 +32,7 @@ public:
 
 	TEST_METHOD(TestSave) {
 		Sudoku9 sudokuOut;
-		srand(time(0));
+		srand((unsigned int) time(0));
 
 		for (int row = 0; row < 9; row++) {
 			for (int col = 0; col < 9; col++) {
