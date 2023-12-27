@@ -11,11 +11,11 @@ SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, Color fro
 }
 
 SudokuConsole::Menu::~Menu() {
-	COORD const size = { 150, 35 };
+	COORD const size = { 150, 300 };
 	CONSOLE_CURSOR_INFO info = { 100, TRUE };
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SMALL_RECT const minimal_window = { 0, 0, 1, 1 };
-	SMALL_RECT const window = { 0, 0, size.X - 1, size.Y - 1 };
+	SMALL_RECT const window = { 0, 0, size.X - 1, 34 };
 	SetConsoleCursorInfo(handle, &info);
 	SetConsoleWindowInfo(handle, TRUE, &minimal_window);
 	SetConsoleScreenBufferSize(handle, size);
