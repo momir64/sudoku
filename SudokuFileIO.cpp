@@ -9,7 +9,7 @@ namespace SudokuFileIO {
 		fin.open(fileName);
 
 		if (fin.fail())
-			throw std::invalid_argument("File with given name doesn't exist!");
+			throw std::invalid_argument("File failed to open!");
 
 		for (int row = 0; row < 9; row++) {
 			for (int col = 0; col < 9; col++) {
@@ -21,8 +21,6 @@ namespace SudokuFileIO {
 			}
 		}
 
-		fin.close();
-
 		return sudoku;
 	}
 
@@ -32,16 +30,14 @@ namespace SudokuFileIO {
 		fout.open(fileName);
 
 		if (fout.fail())
-			throw std::invalid_argument("File with given name doesn't exist!");
+			throw std::invalid_argument("File failed to open!");
 
 		for (int row = 0; row < 9; row++) {
-			for (int col = 0; col < 9; col++) {
+			for (int col = 0; col < 9; col++)
 				fout << sudoku.getValue(row, col) << " ";
-			}
+
 			fout << std::endl;
 		}
-
-		fout.close();
 	}
 };
 
