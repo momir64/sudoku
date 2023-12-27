@@ -63,7 +63,7 @@ std::string SudokuConsole::Menu::underline(std::string text) {
 	return "\x1B[4m" + text + "\x1B[24m";
 }
 
-void SudokuConsole::Menu::print(Sudoku9 sudoku) {
+void SudokuConsole::Menu::print(Sudoku9 sudoku, Sudoku9 original) {
 	static const int len = 37;
 	static const std::string fatLine = color("┃");
 	static const std::string slimLine = color("│");
@@ -85,7 +85,11 @@ void SudokuConsole::Menu::print(Sudoku9 sudoku) {
 				line += slimLine;
 			else
 				line += fatLine;
-			line += " " + std::to_string(sudoku.getValue(i, j)) + " ";
+
+			int numValue = sudoku.getValue(i, j);
+			std::string txtValue = numValue ? std::to_string(numValue) : std::string(" ");
+			txtValue = original.getValue(i, j) ? color(txtValue) : txtValue;
+			line += " " + txtValue + " ";
 		}
 		line += fatLine;
 
