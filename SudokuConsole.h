@@ -5,6 +5,7 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+#include <vector>
 #include "Sudoku9.h"
 
 namespace SudokuConsole {
@@ -30,27 +31,40 @@ namespace SudokuConsole {
 
 	class Menu {
 	private:
+		enum KeyboardKey {
+			EnterKey = 13,
+			SpaceKey = 32,
+			UpArrow = 72,
+			LeftArrow = 75,
+			RightArrow = 77,
+			DownArrow = 80
+		};
+
 		short margin;
 		short height;
 		short width;
 		Color bColor;
 		Color fColor;
 
+		void hideCursor();
+		void showCursor();
 		void setWindowsSize();
-		void printUTF8(std::string text, int printedLength = 0, bool center = true);
+		void printEncoded(std::string text, int printedLength = 0, bool center = true);
 		std::string color(std::string text, Color frontColor = Color::Gray);
+		std::string underline(std::string text);
 		std::string pad(int padding);
 
 	public:
-		Menu(unsigned short width = 70, unsigned short height = 50, Color frontColor = Color::DarkBlack, Color backColor = Color::White, unsigned short margin = 3);
+		Menu(unsigned short width = 70, unsigned short height = 46, Color frontColor = Color::DarkBlack, Color backColor = Color::White, unsigned short margin = 3);
 		~Menu();
 
 		void clear();
 		void print(Sudoku9 sudoku);
-		void print(std::string text = "", bool center = false);
+		void print(std::string text = "", bool center = true);
+		void printBanner();
 		void printSeparator();
 		void printStats(int puzzleNo, int correct, int incorrect);
-		int getOption(int minValue = 0, int maxValue = 9);
+		int selectOption(std::vector<std::string> options);
 		std::string getString();
 	};
 }
