@@ -120,9 +120,13 @@ void SudokuConsole::Menu::printSeparator() {
 }
 
 void SudokuConsole::Menu::printStats(int puzzleNo, int correct, int incorrect) {
-	std::string pzNo = "Puzzle No: " + std::to_string(puzzleNo);
-	std::string cor = "   Correct: " + std::to_string(correct);
-	std::string inc = "Incorrect: " + std::to_string(incorrect) + "   ";
+	std::string pzNo = "Puzzle No: " + std::to_string(puzzleNo), cor, inc;
+	if (correct == -1 || incorrect == -1)
+		cor = inc = "";
+	else {
+		cor = "   Correct: " + std::to_string(correct);
+		inc = "Incorrect: " + std::to_string(incorrect) + "   ";
+	}
 
 	int s1 = (width - (int)pzNo.length()) / 2 - margin - (int)cor.length();
 	int s2 = (width - (int)pzNo.length()) / 2 - margin - (int)inc.length();
