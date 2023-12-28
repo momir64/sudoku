@@ -68,7 +68,7 @@ std::string SudokuConsole::Menu::underline(std::string text) {
 }
 
 void SudokuConsole::Menu::print(Sudoku9 sudoku, Sudoku9 original) {
-	static const int len = 37;
+	static const int length = 37;
 	static const std::string fatLine = color("┃");
 	static const std::string slimLine = color("│");
 	static const std::string borders[] = { color("┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓"),
@@ -76,12 +76,12 @@ void SudokuConsole::Menu::print(Sudoku9 sudoku, Sudoku9 original) {
 										   color("┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫"),
 										   color("┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛") };
 
-	printEncoded(borders[0], len);
+	printEncoded(borders[0], length);
 	for (int i = 0; i < 9; i++) {
 		if (i && i % 3)
-			printEncoded(borders[1], len);
+			printEncoded(borders[1], length);
 		else if (i)
-			printEncoded(borders[2], len);
+			printEncoded(borders[2], length);
 
 		std::string line;
 		for (int j = 0; j < 9; j++) {
@@ -97,9 +97,9 @@ void SudokuConsole::Menu::print(Sudoku9 sudoku, Sudoku9 original) {
 		}
 		line += fatLine;
 
-		printEncoded(line, len);
+		printEncoded(line, length);
 	}
-	printEncoded(borders[3], len);
+	printEncoded(borders[3], length);
 
 }
 
@@ -119,8 +119,9 @@ void SudokuConsole::Menu::print(std::string text, bool center) {
 	printEncoded(text, (int)text.length(), center);
 }
 
-void SudokuConsole::Menu::printSeparator() {
-	print(std::string((size_t)width - (size_t)margin * 2, '-'), false);
+void SudokuConsole::Menu::printSeparator(unsigned int emptyBefore, unsigned int emptyAfter) {
+	int length = width - margin * 2;
+	print(std::string(emptyBefore, '\n') + std::string(length, '-') + std::string(emptyAfter, '\n'), false);
 }
 
 void SudokuConsole::Menu::printStats(int puzzleNo, int correct, int incorrect) {
@@ -152,14 +153,14 @@ int SudokuConsole::Menu::selectOption(std::vector<std::string> options) {
 	int selected = 0;
 	while (true) {
 		for (int i = 0; i < options.size(); i++)
-			printEncoded(i == selected ? underline(options[i]) : options[i], options[i].length());
+			printEncoded(i == selected ? underline(options[i]) : options[i], (int)options[i].length());
 		std::cout << "\x1B[" << options.size() << "F";
 
 		int input = _getch();
 		if (input == UpArrow || input == LeftArrow)
 			selected = max(selected - 1, 0);
 		else if (input == DownArrow || input == RightArrow)
-			selected = min(selected + 1, options.size() - 1);
+			selected = min(selected + 1, (int)options.size() - 1);
 		else if (input == EnterKey || input == SpaceKey)
 			return selected;
 	}

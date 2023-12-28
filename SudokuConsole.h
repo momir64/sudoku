@@ -56,15 +56,27 @@ namespace SudokuConsole {
 		std::string pad(int padding);
 
 	public:
-		Menu(unsigned short width = 70, unsigned short height = 50, unsigned short margin = 3, Color frontColor = DarkBlack, Color backColor = White, Color specialColor = Gray);
-		Menu(Color frontColor, Color backColor = White, Color specialColor = Gray, unsigned short width = 70, unsigned short height = 50, unsigned short margin = 3);
+		Menu(unsigned short width = 70,
+			unsigned short height = 50,
+			unsigned short margin = 3,
+			Color frontColor = DarkBlack,
+			Color backColor = White,
+			Color specialColor = Gray);
+
+		Menu(Color frontColor,
+			Color backColor = White,
+			Color specialColor = Gray,
+			unsigned short width = 70,
+			unsigned short height = 50,
+			unsigned short margin = 3);
+
 		~Menu();
 
 		void clear();
 		void print(Sudoku9 sudoku, Sudoku9 original = Sudoku9());
 		void print(std::string text = "", bool center = true);
 		void printBanner();
-		void printSeparator();
+		void printSeparator(unsigned int emptyBefore = 0, unsigned int emptyAfter = 0);
 		void printStats(int puzzleNo, int correct = -1, int incorrect = -1);
 		int selectOption(std::vector<std::string> options);
 		std::string getString();

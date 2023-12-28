@@ -7,12 +7,9 @@ int main(int argc, char** argv) {
 	menu.printBanner();
 	menu.printSeparator();
 	menu.printStats(1);
-	menu.printSeparator();
-	menu.print("\n");
+	menu.printSeparator(0, 1);
 	menu.print(SudokuFileIO::load("TestSudoku\\puzzle.txt"));
-	menu.print("\n");
-	menu.printSeparator();
-	menu.print("\n\n");
+	menu.printSeparator(1, 2);
 
 	std::vector<std::string> options = { "Load the new puzzle from file",
 										 "Load the solution from file",
