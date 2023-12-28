@@ -120,8 +120,9 @@ void SudokuConsole::Menu::print(std::string text, bool center) {
 }
 
 void SudokuConsole::Menu::printSeparator(unsigned int emptyBefore, unsigned int emptyAfter) {
-	int length = width - margin * 2;
-	print(std::string(emptyBefore, '\n') + std::string(length, '-') + std::string(emptyAfter, '\n'), false);
+	if (emptyBefore) print(std::string(emptyBefore, '\n'), false);
+	print(std::string(width - margin * 2, '-'), false);
+	if (emptyAfter) print(std::string(emptyAfter, '\n'), false);
 }
 
 void SudokuConsole::Menu::printStats(int puzzleNo, int correct, int incorrect) {
