@@ -8,7 +8,7 @@ SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, unsigned 
 	sColor = specialColor;
 	fColor = frontColor;
 	bColor = backColor;
-	setWindowsSize();
+	setWindowSize();
 }
 
 SudokuConsole::Menu::Menu(Color frontColor, Color backColor, Color specialColor, unsigned short width, unsigned short height, unsigned short margin) :
@@ -28,7 +28,7 @@ SudokuConsole::Menu::~Menu() {
 	clear();
 }
 
-void SudokuConsole::Menu::setWindowsSize() {
+void SudokuConsole::Menu::setWindowSize() {
 	COORD const size = { width, height };
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SMALL_RECT const minimal_window = { 0, 0, 1, 1 };
