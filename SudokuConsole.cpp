@@ -1,14 +1,18 @@
 #include "SudokuConsole.h"
 
-SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, Color frontColor, Color backColor, unsigned short margin) {
+SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, unsigned short margin, Color frontColor, Color backColor, Color specialColor) {
 	SetConsoleOutputCP(CP_UTF8);
 	this->margin = min(margin, width / 4);
 	this->height = height;
 	this->width = width;
+	sColor = specialColor;
 	fColor = frontColor;
 	bColor = backColor;
 	setWindowsSize();
 }
+
+SudokuConsole::Menu::Menu(Color frontColor, Color backColor, Color specialColor, unsigned short width, unsigned short height, unsigned short margin) :
+	Menu::Menu(width, height, margin, frontColor, backColor, specialColor) {}
 
 SudokuConsole::Menu::~Menu() {
 	COORD const size = { 150, 300 };
@@ -55,8 +59,8 @@ void SudokuConsole::Menu::clear() {
 	std::cout << "\x1B[H\x1B[2J\x1B[H";
 }
 
-std::string SudokuConsole::Menu::color(std::string text, Color frontColor) {
-	return "\x1B[38;5;" + std::to_string(frontColor) + "m" + text + "\x1B[38;5;" + std::to_string(fColor) + "m";
+std::string SudokuConsole::Menu::color(std::string text) {
+	return "\x1B[38;5;" + std::to_string(sColor) + "m" + text + "\x1B[38;5;" + std::to_string(fColor) + "m";
 }
 
 std::string SudokuConsole::Menu::underline(std::string text) {

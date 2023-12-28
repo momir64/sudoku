@@ -3,7 +3,7 @@
 #include "SudokuConsole.h"
 
 int main(int argc, char** argv) {
-	SudokuConsole::Menu menu;
+	SudokuConsole::Menu menu; //(SudokuConsole::BrightYellow, SudokuConsole::Magenta, SudokuConsole::Yellow, 150, 50);
 	menu.printBanner();
 	menu.printSeparator();
 	menu.printStats(1);
