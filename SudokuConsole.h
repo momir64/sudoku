@@ -73,7 +73,7 @@ namespace SudokuConsole {
 		~Menu();
 
 		void clear();
-		void print(Sudoku9 sudoku, Sudoku9 original = Sudoku9());
+		void print(Sudoku9 table, Sudoku9 original = Sudoku9());
 		void print(std::string text = "", bool center = true);
 		void printBanner();
 		void printSeparator(unsigned int emptyBefore = 0, unsigned int emptyAfter = 0);
