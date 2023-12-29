@@ -25,9 +25,9 @@ SudokuConsole::Menu::~Menu() {
 }
 
 void SudokuConsole::Menu::setWindowSize(short width, short height) {
-	COORD const size = { width ? width : 150, height ? height : 300 };
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SMALL_RECT const minimal_window = { 0, 0, 1, 1 };
+	COORD size = { width ? width : 150, height ? height : 300 };
 	SMALL_RECT const window = { 0, 0, size.X - 1,  height ? size.Y - 1 : 34 };
 	SetConsoleMode(handle, ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 	SetConsoleWindowInfo(handle, TRUE, &minimal_window);
