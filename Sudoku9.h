@@ -1,18 +1,17 @@
 #pragma once
-#include <iostream>
 #include <stdexcept>
+#include <iostream>
 
 class Sudoku9 {
 private:
-	unsigned int table[9][9];
-	unsigned int puzzleNo;
+	int table[9][9];
+	int puzzleNo;
 
 public:
-	Sudoku9(unsigned int puzzleNo);
-	Sudoku9();
+	Sudoku9(int puzzleNo = 0);
 
-	void setValue(unsigned int row, unsigned int col, unsigned int value);
-	int getValue(unsigned int row, unsigned int col);
-	int getPuzzleNo();
+	void setValue(int row, int col, int value);
+	int getValue(int row, int col) const;
+	int getPuzzleNo() const;
 };
 

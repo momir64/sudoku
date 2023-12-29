@@ -131,19 +131,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SudokuChecker.cpp" />
     <ClCompile Include="SudokuConsole.cpp" />
     <ClCompile Include="SudokuFileIO.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="Sudoku9.cpp" />
-    <ClCompile Include="SudokuChecker.cpp" />
     <ClCompile Include="SudokuGenerator.cpp" />
     <ClCompile Include="SudokuSolver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SudokuChecker.h" />
     <ClInclude Include="SudokuConsole.h" />
     <ClInclude Include="SudokuFileIO.h" />
     <ClInclude Include="Sudoku9.h" />
-    <ClInclude Include="SudokuChecker.h" />
     <ClInclude Include="SudokuGenerator.h" />
     <ClInclude Include="SudokuSolver.h" />
   </ItemGroup>
