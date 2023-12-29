@@ -8,49 +8,39 @@ SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, unsigned 
 	sColor = specialColor;
 	fColor = frontColor;
 	bColor = backColor;
-	setWindowSize();
+	setWindowSize(width, height);
+	hideCursor();
+	clear();
 }
 
 SudokuConsole::Menu::Menu(Color frontColor, Color backColor, Color specialColor, unsigned short width, unsigned short height, unsigned short margin) :
 	Menu::Menu(width, height, margin, frontColor, backColor, specialColor) {}
 
 SudokuConsole::Menu::~Menu() {
-	COORD const size = { 150, 300 };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SMALL_RECT const minimal_window = { 0, 0, 1, 1 };
-	SMALL_RECT const window = { 0, 0, size.X - 1, 34 };
-	SetConsoleWindowInfo(handle, TRUE, &minimal_window);
-	SetConsoleScreenBufferSize(handle, size);
-	SetConsoleWindowInfo(handle, TRUE, &window);
+	setWindowSize();
 	fColor = White;
 	bColor = Black;
 	showCursor();
 	clear();
 }
 
-void SudokuConsole::Menu::setWindowSize() {
-	COORD const size = { width, height };
+void SudokuConsole::Menu::setWindowSize(short width, short height) {
+	COORD const size = { width ? width : 150, height ? height : 300 };
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SMALL_RECT const minimal_window = { 0, 0, 1, 1 };
-	SMALL_RECT const window = { 0, 0, size.X - 1, size.Y - 1 };
+	SMALL_RECT const window = { 0, 0, size.X - 1,  height ? size.Y - 1 : 34 };
 	SetConsoleMode(handle, ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 	SetConsoleWindowInfo(handle, TRUE, &minimal_window);
 	SetConsoleScreenBufferSize(handle, size);
 	SetConsoleWindowInfo(handle, TRUE, &window);
-	hideCursor();
-	clear();
 }
 
 void SudokuConsole::Menu::hideCursor() {
-	CONSOLE_CURSOR_INFO info = { 100, FALSE };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorInfo(handle, &info);
+	std::cout << "\x1B[?25l";
 }
 
 void SudokuConsole::Menu::showCursor() {
-	CONSOLE_CURSOR_INFO info = { 100, TRUE };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorInfo(handle, &info);
+	std::cout << "\x1B[?25h";
 }
 
 void SudokuConsole::Menu::clear() {

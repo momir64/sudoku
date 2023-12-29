@@ -49,7 +49,7 @@ namespace SudokuConsole {
 
 		void hideCursor();
 		void showCursor();
-		void setWindowSize();
+		void setWindowSize(short width = 0, short height = 0);
 		void printEncoded(std::string text, int printedLength = 0, bool center = true);
 		std::string color(std::string text);
 		std::string underline(std::string text);
