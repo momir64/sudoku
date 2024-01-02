@@ -9,12 +9,12 @@ namespace SudokuFileIO {
 		fin.open(fileName);
 
 		if (fin.fail())
-			throw std::invalid_argument("File failed to open!");
+			throw std::invalid_argument("File \"" + fileName + "\" failed to open!");
 
 		for (int row = 0; row < 9; row++) {
 			for (int col = 0; col < 9; col++) {
 				if (fin.eof())
-					throw std::invalid_argument("Premature end of file!");
+					throw std::invalid_argument("Premature end of file \"" + fileName + "\"!");
 
 				fin >> value;
 				sudoku.setValue(row, col, value);
@@ -30,7 +30,7 @@ namespace SudokuFileIO {
 		fout.open(fileName);
 
 		if (fout.fail())
-			throw std::invalid_argument("File failed to open!");
+			throw std::invalid_argument("File \"" + fileName + "\" failed to open!");
 
 		for (int row = 0; row < 9; row++) {
 			for (int col = 0; col < 9; col++)

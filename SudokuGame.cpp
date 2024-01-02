@@ -27,23 +27,29 @@ void SudokuGame::load(SudokuConsole::Menu menu, int puzzleNo, Sudoku9 puzzle) {
 
 	int option = menu.selectOption(options);
 
-	if (option == -1) return;
-	else if (option == 0) {
-		std::string pzlFileName = menu.getString("Puzzle file name: ");
-		Sudoku9 puzzle = SudokuFileIO::load(pzlFileName);
-		load(menu, ++puzzleNo, puzzle);
-	} else if (option == 1) {
-		std::string slnFileName = menu.getString("Solution file name: ");
-		Sudoku9 solution = SudokuFileIO::load(slnFileName);
-		check(menu, puzzleNo, puzzle, solution);
-	} else if (option == 2) {
-		std::string pzlFileName = menu.getString("Puzzle file name: ");
-		SudokuFileIO::save(pzlFileName, puzzle);
+	try {
+		if (option == -1) return;
+		else if (option == 0) {
+			std::string pzlFileName = menu.getString("Puzzle file name: ");
+			Sudoku9 puzzle = SudokuFileIO::load(pzlFileName);
+			load(menu, ++puzzleNo, puzzle);
+		} else if (option == 1) {
+			std::string slnFileName = menu.getString("Solution file name: ");
+			Sudoku9 solution = SudokuFileIO::load(slnFileName);
+			check(menu, puzzleNo, puzzle, solution);
+		} else if (option == 2) {
+			std::string pzlFileName = menu.getString("Puzzle file name: ");
+			SudokuFileIO::save(pzlFileName, puzzle);
+			load(menu, puzzleNo, puzzle);
+		} else if (option == 3)
+			generate(menu, ++puzzleNo);
+		else if (option == 4)
+			solve(menu, puzzleNo, puzzle);
+	} catch (std::invalid_argument e) {
+		menu.print(e.what());
+		int _ = _getch();
 		load(menu, puzzleNo, puzzle);
-	} else if (option == 3)
-		generate(menu, ++puzzleNo);
-	else if (option == 4)
-		solve(menu, puzzleNo, puzzle);
+	}
 }
 
 
@@ -66,17 +72,23 @@ void SudokuGame::solve(SudokuConsole::Menu menu, int puzzleNo, Sudoku9 puzzle, s
 
 	int option = menu.selectOption(options);
 
-	if (option == -1) return;
-	else if (option == 0) {
-		std::string pzlFileName = menu.getString("Puzzle file name: ");
-		Sudoku9 puzzle = SudokuFileIO::load(pzlFileName);
-		load(menu, ++puzzleNo, puzzle);
-	} else if (option == 1) {
-		std::string slnFileName = menu.getString("Solution file name: ");
-		SudokuFileIO::save(slnFileName, solution);
-		check(menu, puzzleNo, puzzle, solution);
-	} else if (option == 2)
-		generate(menu, ++puzzleNo);
+	try {
+		if (option == -1) return;
+		else if (option == 0) {
+			std::string pzlFileName = menu.getString("Puzzle file name: ");
+			Sudoku9 puzzle = SudokuFileIO::load(pzlFileName);
+			load(menu, ++puzzleNo, puzzle);
+		} else if (option == 1) {
+			std::string slnFileName = menu.getString("Solution file name: ");
+			SudokuFileIO::save(slnFileName, solution);
+			check(menu, puzzleNo, puzzle, solution);
+		} else if (option == 2)
+			generate(menu, ++puzzleNo);
+	} catch (std::invalid_argument e) {
+		menu.print(e.what());
+		int _ = _getch();
+		solve(menu, puzzleNo, puzzle, slnFileName);
+	}
 }
 
 
@@ -94,37 +106,67 @@ void SudokuGame::check(SudokuConsole::Menu menu, int puzzleNo, Sudoku9 puzzle, S
 
 	int option = menu.selectOption(options);
 
-	if (option == -1) return;
-	else if (option == 0) {
-		std::string pzlFileName = menu.getString("Puzzle file name: ");
-		Sudoku9 puzzle = SudokuFileIO::load(pzlFileName);
-		load(menu, ++puzzleNo, puzzle);
-	} else if (option == 1)
-		generate(menu, ++puzzleNo);
+	try {
+		if (option == -1) return;
+		else if (option == 0) {
+			std::string pzlFileName = menu.getString("Puzzle file name: ");
+			Sudoku9 puzzle = SudokuFileIO::load(pzlFileName);
+			load(menu, ++puzzleNo, puzzle);
+		} else if (option == 1)
+			generate(menu, ++puzzleNo);
+	} catch (std::invalid_argument e) {
+		menu.print(e.what());
+		int _ = _getch();
+		check(menu, puzzleNo, puzzle, solution);
+	}
 }
 
 
 void SudokuGame::load(SudokuConsole::Menu menu, int puzzleNo, std::string puzFileName) {
-	Sudoku9 puzzle = SudokuFileIO::load(puzFileName);
-	load(menu, puzzleNo, puzzle);
+	try {
+		Sudoku9 puzzle = SudokuFileIO::load(puzFileName);
+		load(menu, puzzleNo, puzzle);
+	} catch (std::invalid_argument e) {
+		menu.print(e.what());
+		int _ = _getch();
+		return;
+	}
 }
 
 void SudokuGame::generate(SudokuConsole::Menu menu, int puzzleNo, std::string puzFileName) {
-	Sudoku9 puzzle = SudokuGenerator().generate();
-	if (!puzFileName.empty())
-		SudokuFileIO::save(puzFileName, puzzle);
-	load(menu, puzzleNo, puzzle);
+	try {
+		Sudoku9 puzzle = SudokuGenerator().generate();
+		if (!puzFileName.empty())
+			SudokuFileIO::save(puzFileName, puzzle);
+		load(menu, puzzleNo, puzzle);
+	} catch (std::invalid_argument e) {
+		menu.print(e.what());
+		int _ = _getch();
+		return;
+	}
 }
 
 void SudokuGame::solve(SudokuConsole::Menu menu, int puzzleNo, std::string puzFileName, std::string slnFileName) {
-	Sudoku9 puzzle = SudokuFileIO::load(puzFileName);
-	solve(menu, puzzleNo, puzzle, slnFileName);
+	try {
+		Sudoku9 puzzle = SudokuFileIO::load(puzFileName);
+		solve(menu, puzzleNo, puzzle, slnFileName);
+	} catch (std::invalid_argument e) {
+		menu.print(e.what());
+		int _ = _getch();
+		return;
+	}
 }
 
 void SudokuGame::check(SudokuConsole::Menu menu, int puzzleNo, std::string puzFileName, std::string slnFileName) {
-	Sudoku9 puzzle = SudokuFileIO::load(puzFileName);
-	Sudoku9 solution = SudokuFileIO::load(slnFileName);
-	check(menu, puzzleNo, puzzle, solution);
+	try {
+		Sudoku9 puzzle = SudokuFileIO::load(puzFileName);
+		Sudoku9 solution = SudokuFileIO::load(slnFileName);
+		check(menu, puzzleNo, puzzle, solution);
+	} catch (std::invalid_argument e) {
+		menu.print(e.what());
+		int _ = _getch();
+		return;
+	}
 }
 
 

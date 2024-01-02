@@ -117,7 +117,7 @@ void SudokuConsole::Menu::print(std::string text, bool center) {
 
 void SudokuConsole::Menu::printSeparator(unsigned int emptyBefore, unsigned int emptyAfter) {
 	if (emptyBefore) print(std::string(emptyBefore - 1, '\n'), false);
-	print(std::string(width - margin * 2, '-'), false);
+	print(std::string((size_t)width - (size_t)margin * 2, '-'), false);
 	if (emptyAfter) print(std::string(emptyAfter - 1, '\n'), false);
 }
 
@@ -169,9 +169,9 @@ int SudokuConsole::Menu::selectOption(std::vector<std::string> options) {
 
 std::string SudokuConsole::Menu::getString(std::string text) {
 	showCursor();
-	std::cout << pad(margin) << text;
+	std::cout << "\x1B[s" << pad(margin) << text;
 	std::cin >> text;
+	std::cout << "\x1B[u\x1B[0J";
 	hideCursor();
-	std::cout << "\x1B[2K";
 	return text;
 }
