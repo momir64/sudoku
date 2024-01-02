@@ -14,6 +14,6 @@ private:
 	void fillBox(int box);
 
 public:
-	Sudoku9 generate(int emptyCells = 33, int puzzleNo = 0);
+	Sudoku9 generate(int emptyCells = 42, int puzzleNo = 0);
 };
 

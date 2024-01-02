@@ -9,9 +9,10 @@ SudokuSolver::SudokuSolver(const Sudoku9& table) {
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
 			if (table.getValue(i, j)) {
-				rowContains[i].set(table.getValue(i, j) - 1);
-				colContains[j].set(table.getValue(i, j) - 1);
-				gridContains[getGrid(i, j)].set(table.getValue(i, j) - 1);
+				int value = table.getValue(i, j) - 1;
+				rowContains[i].set(value);
+				colContains[j].set(value);
+				gridContains[getGrid(i, j)].set(value);
 			}
 		}
 	}

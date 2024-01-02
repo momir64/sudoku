@@ -13,7 +13,7 @@ void SudokuGenerator::fillBox(int box) {
 	std::array values = getRandomArray<9>(1);
 	for (int i = 0; i < 3 ; i++)
 		for (int j = 0; j < 3; j++)
-			table.setValue(box * 3 + i, box * 3 + j, values[i * 3 + j]);
+			table.setValue(box * 3 + i, box * 3 + j, values[(size_t)i * 3 + j]);
 }
 
 Sudoku9 SudokuGenerator::generate(int emptyCells, int puzzleNo) {

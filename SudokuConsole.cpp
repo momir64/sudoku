@@ -49,6 +49,10 @@ void SudokuConsole::Menu::clear() {
 	std::cout << "\x1B[H\x1B[2J\x1B[H";
 }
 
+void SudokuConsole::Menu::goTo(unsigned int row, unsigned int col) {
+	std::cout << "\x1B[" << row << ";" << col << "H";
+}
+
 std::string SudokuConsole::Menu::color(std::string text) {
 	return "\x1B[38;5;" + std::to_string(sColor) + "m" + text + "\x1B[38;5;" + std::to_string(fColor) + "m";
 }
@@ -57,7 +61,7 @@ std::string SudokuConsole::Menu::underline(std::string text) {
 	return "\x1B[4m" + text + "\x1B[24m";
 }
 
-void SudokuConsole::Menu::print(Sudoku9 table, Sudoku9 original) {
+void SudokuConsole::Menu::print(Sudoku9 solution, Sudoku9 puzzle) {
 	static const int length = 37;
 	static const std::string fatLine = color("┃");
 	static const std::string slimLine = color("│");
@@ -80,9 +84,9 @@ void SudokuConsole::Menu::print(Sudoku9 table, Sudoku9 original) {
 			else
 				line += fatLine;
 
-			int numValue = table.getValue(i, j);
-			std::string txtValue = numValue ? std::to_string(numValue) : std::string(" ");
-			txtValue = original.getValue(i, j) ? color(txtValue) : txtValue;
+			int slnValue = solution.getValue(i, j), puzValue = puzzle.getValue(i, j);
+			std::string txtValue = slnValue ? std::to_string(slnValue) : std::string(" ");
+			txtValue = puzValue ? color(std::to_string(puzValue)) : txtValue;
 			line += " " + txtValue + " ";
 		}
 		line += fatLine;
