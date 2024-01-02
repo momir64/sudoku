@@ -30,5 +30,5 @@ int main(int argc, char** argv) {
 			SudokuGame::help();
 
 	} else
-		SudokuGame::load(SudokuConsole::Menu(), 1, Sudoku9());
+		SudokuGame::load(SudokuConsole::Menu(), 0, Sudoku9());
 }
