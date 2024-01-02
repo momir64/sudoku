@@ -8,8 +8,8 @@ private:
 	Sudoku9 table;
 	bool solved;
 
-	int getGrid(int row, int col);
-	bool solve(int rowStart, int colStart, std::bitset<9> rows[], std::bitset<9> cols[], std::bitset<9> grids[]);
+	int getBox(int row, int col);
+	bool solve(int rowStart, int colStart, std::bitset<9> rows[], std::bitset<9> cols[], std::bitset<9> boxes[]);
 	bool nextEmpty(int& row, int& col);
 
 public:

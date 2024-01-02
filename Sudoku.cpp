@@ -1,72 +1,34 @@
 #include <iostream>
-#include "SudokuFileIO.h"
-#include "SudokuConsole.h"
-#include "SudokuGenerator.h"
-
-void benchmark();
+#include "SudokuGame.h"
 
 int main(int argc, char** argv) {
-	benchmark();
-	//SudokuConsole::Menu menu; //(SudokuConsole::Magenta, SudokuConsole::Black, SudokuConsole::Purple, 150, 50);
-	//SudokuGenerator gen;
+	if (argc > 1) {
+		if (argv[1] == std::string("--load")) {
+			if (argc == 3)
+				SudokuGame::load(SudokuConsole::Menu(), 1, argv[2]);
 
-	//menu.printBanner();
-	//menu.printSeparator();
-	//menu.printStats(1);
-	//menu.printSeparator(0, 1);
-	//menu.print(gen.generate()); //SudokuFileIO::load("TestSudoku\\puzzle.txt"));
-	//menu.printSeparator(1, 2);
+		} else if (argv[1] == std::string("--generate")) {
+			if (argc == 2)
+				SudokuGame::generate(SudokuConsole::Menu(), 1);
+			else if (argc == 3)
+				SudokuGame::generate(SudokuConsole::Menu(), 1, argv[2]);
 
-	//std::vector<std::string> options = { "Load the new puzzle from file",
-	//									 "Load the solution from file",
-	//									 "Save the puzzle to file",
-	//									 "Generate new puzzle",
-	//									 "Solve the puzzle", };
-	//int option = menu.selectOption(options);
+		} else if (argv[1] == std::string("--solve")) {
+			if (argc == 3)
+				SudokuGame::solve(SudokuConsole::Menu(), 1, argv[2]);
+			else if (argc == 4)
+				SudokuGame::solve(SudokuConsole::Menu(), 1, argv[2], argv[3]);
 
-	//return option;
-}
+		} else if (argv[1] == std::string("--check")) {
+			if (argc == 4)
+				SudokuGame::check(SudokuConsole::Menu(), 1, argv[2], argv[3]);
 
-void benchmark() {
-	SudokuConsole::Menu menu(70, 44); //(SudokuConsole::Magenta, SudokuConsole::Black, SudokuConsole::Purple, 150, 50);
-	SudokuGenerator gen;
-	bool slow = true;
-	menu.printBanner();
-	menu.printSeparator();
+		} else if (argv[1] == std::string("--benchmark"))
+			SudokuGame::benchmark();
 
-	int i = 0;
-	double genSum = 0, slvSum = 0;
-	while (true) {
-		menu.goTo(11);
-		menu.printStats(i + 1);
-		menu.printSeparator(0, 2);
+		else
+			SudokuGame::help();
 
-		std::clock_t start = std::clock();
-		Sudoku9 puzzle = gen.generate();
-		genSum += (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000);
-		menu.print(Sudoku9(), puzzle);
-		menu.goTo(15);
-
-		if (slow) Sleep(1000);
-		if (_kbhit()) {
-			int _ = _getch();
-			slow = !slow;
-		}
-
-		start = std::clock();
-		Sudoku9 solution = SudokuSolver(puzzle).getSolution();
-		slvSum += (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000);
-		menu.print(solution, puzzle);
-
-		i++;
-		menu.goTo(37);
-		menu.print("Generate: " + std::to_string(genSum / i) + " ms ");
-		menu.print(" Solving: " + std::to_string(slvSum / i) + " ms ");
-
-		if (slow) Sleep(1000);
-		if (_kbhit()) {
-			int _ = _getch();
-			slow = !slow;
-		}
-	}
+	} else
+		SudokuGame::help();
 }

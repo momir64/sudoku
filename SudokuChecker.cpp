@@ -5,7 +5,7 @@ SudokuChecker::SudokuChecker(const Sudoku9& puzzle, const Sudoku9& solution) {
 }
 
 bool SudokuChecker::check(const Sudoku9& puzzle, const Sudoku9& solution) {
-	std::unordered_set<int> rows[9], cols[9], grids[9];
+	std::unordered_set<int> rows[9], cols[9], boxes[9];
 	correct = incorrect = 0;
 	bool solved = true;
 
@@ -17,9 +17,9 @@ bool SudokuChecker::check(const Sudoku9& puzzle, const Sudoku9& solution) {
 				continue;
 			}
 
-			int grid = (i / 3) * 3 + j / 3;
+			int box = (i / 3) * 3 + j / 3;
 			if (!puzzle.getValue(i, j)) {
-				if (rows[i].count(value) || cols[j].count(value) || grids[grid].count(value)) {
+				if (rows[i].count(value) || cols[j].count(value) || boxes[box].count(value)) {
 					solved = false;
 					incorrect++;
 				} else
@@ -28,7 +28,7 @@ bool SudokuChecker::check(const Sudoku9& puzzle, const Sudoku9& solution) {
 
 			rows[i].insert(value);
 			cols[j].insert(value);
-			grids[grid].insert(value);
+			boxes[box].insert(value);
 		}
 	}
 

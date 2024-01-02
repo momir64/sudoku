@@ -3,7 +3,7 @@
 SudokuSolver::SudokuSolver(const Sudoku9& table) {
 	std::bitset<9> rowContains[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	std::bitset<9> colContains[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	std::bitset<9> gridContains[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::bitset<9> boxContains[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	this->table = table;
 
 	for (int i = 0; i < 9; i++) {
@@ -12,15 +12,15 @@ SudokuSolver::SudokuSolver(const Sudoku9& table) {
 				int value = table.getValue(i, j) - 1;
 				rowContains[i].set(value);
 				colContains[j].set(value);
-				gridContains[getGrid(i, j)].set(value);
+				boxContains[getBox(i, j)].set(value);
 			}
 		}
 	}
 
-	solved = solve(0, 0, rowContains, colContains, gridContains);
+	solved = solve(0, 0, rowContains, colContains, boxContains);
 }
 
-int SudokuSolver::getGrid(int row, int col) {
+int SudokuSolver::getBox(int row, int col) {
 	return (row / 3) * 3 + col / 3;
 }
 
@@ -34,12 +34,12 @@ bool SudokuSolver::nextEmpty(int& row, int& col) {
 	return false;
 }
 
-bool SudokuSolver::solve(int row, int col, std::bitset<9> rows[], std::bitset<9> cols[], std::bitset<9> grids[]) {
+bool SudokuSolver::solve(int row, int col, std::bitset<9> rows[], std::bitset<9> cols[], std::bitset<9> boxes[]) {
 	if (!nextEmpty(row, col))
 		return true;
 
-	int grid = getGrid(row, col);
-	std::bitset<9> contains = rows[row] | cols[col] | grids[grid];
+	int box = getBox(row, col);
+	std::bitset<9> contains = rows[row] | cols[col] | boxes[box];
 
 	if (contains.all())
 		return false;
@@ -50,14 +50,14 @@ bool SudokuSolver::solve(int row, int col, std::bitset<9> rows[], std::bitset<9>
 
 			rows[row].set(value);
 			cols[col].set(value);
-			grids[grid].set(value);
+			boxes[box].set(value);
 
-			if (solve(row, col, rows, cols, grids))
+			if (solve(row, col, rows, cols, boxes))
 				return true;
 
 			rows[row].reset(value);
 			cols[col].reset(value);
-			grids[grid].reset(value);
+			boxes[box].reset(value);
 		}
 	}
 

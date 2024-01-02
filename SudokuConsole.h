@@ -33,6 +33,7 @@ namespace SudokuConsole {
 	private:
 		enum KeyboardKey {
 			EnterKey = 13,
+			EscKey = 27,
 			SpaceKey = 32,
 			UpArrow = 72,
 			LeftArrow = 75,
@@ -80,6 +81,6 @@ namespace SudokuConsole {
 		void printSeparator(unsigned int emptyBefore = 0, unsigned int emptyAfter = 0);
 		void printStats(int puzzleNo, int correct = -1, int incorrect = -1);
 		int selectOption(std::vector<std::string> options);
-		std::string getString();
+		std::string getString(std::string text = "");
 	};
 }

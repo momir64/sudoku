@@ -11,6 +11,8 @@ SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, unsigned 
 	setWindowSize(width, height);
 	hideCursor();
 	clear();
+	printBanner();
+	printSeparator();
 }
 
 SudokuConsole::Menu::Menu(Color frontColor, Color backColor, Color specialColor, unsigned short width, unsigned short height, unsigned short margin) :
@@ -156,15 +158,20 @@ int SudokuConsole::Menu::selectOption(std::vector<std::string> options) {
 			selected = max(selected - 1, 0);
 		else if (input == DownArrow || input == RightArrow)
 			selected = min(selected + 1, (int)options.size() - 1);
-		else if (input == EnterKey || input == SpaceKey)
+		else if (input == EnterKey || input == SpaceKey) {
+			std::cout << "\x1B[0J";
 			return selected;
+		} else if (input == EscKey) {
+			return -1;
+		}
 	}
 }
 
-std::string SudokuConsole::Menu::getString() {
-	std::string text;
+std::string SudokuConsole::Menu::getString(std::string text) {
 	showCursor();
+	std::cout << pad(margin) << text;
 	std::cin >> text;
 	hideCursor();
+	std::cout << "\x1B[2K";
 	return text;
 }

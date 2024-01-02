@@ -1,8 +1,8 @@
 #include "SudokuGenerator.h"
 
 template<unsigned int N> std::array<int, N> SudokuGenerator::getRandomArray(int start) {
-	std::random_device rd = std::random_device{};
-	std::mt19937 rng = std::default_random_engine{ rd() };
+	static std::random_device rd = std::random_device{};
+	static std::mt19937 rng = std::default_random_engine{ rd() };
 	std::array<int, N> values;
 	std::iota(values.begin(), values.end(), start);
 	std::shuffle(values.begin(), values.end(), rng);
@@ -16,7 +16,7 @@ void SudokuGenerator::fillBox(int box) {
 			table.setValue(box * 3 + i, box * 3 + j, values[(size_t)i * 3 + j]);
 }
 
-Sudoku9 SudokuGenerator::generate(int emptyCells, int puzzleNo) {
+Sudoku9 SudokuGenerator::generate(int puzzleNo, int emptyCells) {
 	table = Sudoku9(puzzleNo);
 
 	for (int i = 0; i < 3; i++)
