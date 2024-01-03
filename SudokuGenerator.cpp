@@ -10,8 +10,8 @@ template<unsigned int N> std::array<int, N> SudokuGenerator::getRandomArray(int 
 }
 
 void SudokuGenerator::fillBox(int box) {
-	std::array values = getRandomArray<9>(1);
-	for (int i = 0; i < 3 ; i++)
+	std::array<int, 9> values = getRandomArray<9>(1);
+	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
 			table.setValue(box * 3 + i, box * 3 + j, values[(size_t)i * 3 + j]);
 }
@@ -25,7 +25,7 @@ Sudoku9 SudokuGenerator::generate(int puzzleNo, int emptyCells) {
 	SudokuSolver solver(table);
 	table = solver.getSolution();
 
-	std::array pos = getRandomArray<81>();
+	std::array<int, 81> pos = getRandomArray<81>();
 	for (int i = 0; i < emptyCells; i++)
 		table.setValue(pos[i] / 9, pos[i] % 9, 0);
 
