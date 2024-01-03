@@ -157,7 +157,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TestSudoku9.cpp" />
+    <ClCompile Include="TestSudokuChecker.cpp" />
     <ClCompile Include="TestSudokuFileIO.cpp" />
+    <ClCompile Include="TestSudokuGenerator.cpp" />
+    <ClCompile Include="TestSudokuSolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sudoku.vcxproj">
@@ -166,10 +169,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="empty.txt" />
+    <Text Include="impossible.txt" />
     <Text Include="invalid1.txt" />
     <Text Include="invalid2.txt" />
     <Text Include="invalid3.txt" />
-    <Text Include="solved.txt" />
+    <Text Include="invalid4.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
