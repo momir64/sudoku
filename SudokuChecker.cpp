@@ -1,5 +1,10 @@
 #include "SudokuChecker.h"
 
+SudokuChecker::SudokuChecker() {
+	incorrect = -1;
+	correct = -1;
+}
+
 SudokuChecker::SudokuChecker(const Sudoku9& puzzle, const Sudoku9& solution) {
 	check(puzzle, solution);
 }
@@ -24,6 +29,10 @@ bool SudokuChecker::check(const Sudoku9& puzzle, const Sudoku9& solution) {
 					incorrect++;
 				} else
 					correct++;
+			} else if (puzzle.getValue(i, j) != value) {
+				incorrect = -1;
+				correct = -1;
+				return false;
 			}
 
 			rows[i].insert(value);
@@ -35,10 +44,10 @@ bool SudokuChecker::check(const Sudoku9& puzzle, const Sudoku9& solution) {
 	return solved;
 }
 
-int SudokuChecker::getCorrect() {
+int SudokuChecker::getCorrect() const {
 	return correct;
 }
 
-int SudokuChecker::getIncorrect() {
+int SudokuChecker::getIncorrect() const {
 	return incorrect;
 }

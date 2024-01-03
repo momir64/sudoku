@@ -8,10 +8,11 @@ private:
 	int incorrect;
 
 public:
+	SudokuChecker();
 	SudokuChecker(const Sudoku9& puzzle, const Sudoku9& solution);
 	bool check(const Sudoku9& puzzle, const Sudoku9& solution);
 
-	int getCorrect();
-	int getIncorrect();
+	int getCorrect() const;
+	int getIncorrect() const;
 };
 
