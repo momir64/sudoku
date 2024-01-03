@@ -1,23 +1,31 @@
 #include "SudokuSolver.h"
 
 SudokuSolver::SudokuSolver(const Sudoku9& table) {
-	std::bitset<9> rowContains[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	std::bitset<9> colContains[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	std::bitset<9> boxContains[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::bitset<9> rows[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::bitset<9> cols[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::bitset<9> boxes[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	this->table = table;
 
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			if (table.getValue(i, j)) {
-				int value = table.getValue(i, j) - 1;
-				rowContains[i].set(value);
-				colContains[j].set(value);
-				boxContains[getBox(i, j)].set(value);
+	for (int row = 0; row < 9; row++) {
+		for (int col = 0; col < 9; col++) {
+			if (table.getValue(row, col)) {
+				int value = table.getValue(row, col) - 1;
+				int box = getBox(row, col);
+
+				std::bitset<9> contains = rows[row] | cols[col] | boxes[box];
+				if (contains[value]) {
+					solved = false;
+					return;
+				}
+
+				rows[row].set(value);
+				cols[col].set(value);
+				boxes[box].set(value);
 			}
 		}
 	}
 
-	solved = solve(0, 0, rowContains, colContains, boxContains);
+	solved = solve(0, 0, rows, cols, boxes);
 }
 
 int SudokuSolver::getBox(int row, int col) {
