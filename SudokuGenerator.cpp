@@ -1,8 +1,10 @@
 #include "SudokuGenerator.h"
 
+SudokuGenerator::SudokuGenerator() {
+	rng = std::default_random_engine{ std::random_device{}() };
+}
+
 template<unsigned int N> std::array<int, N> SudokuGenerator::getRandomArray(int start) {
-	static std::random_device rd = std::random_device{};
-	static std::mt19937 rng = std::default_random_engine{ rd() };
 	std::array<int, N> values;
 	std::iota(values.begin(), values.end(), start);
 	std::shuffle(values.begin(), values.end(), rng);
