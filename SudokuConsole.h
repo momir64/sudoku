@@ -73,7 +73,7 @@ namespace SudokuConsole {
 
 		~Menu();
 
-		void clear();
+		void clear() const;
 		void goTo(unsigned int row = 0, unsigned int col = 0);
 		void print(Sudoku9 solution, Sudoku9 puzzle = Sudoku9());
 		void print(std::string text = "", bool center = true);

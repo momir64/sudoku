@@ -45,7 +45,7 @@ void SudokuConsole::Menu::showCursor() {
 	std::cout << "\x1B[?25h";
 }
 
-void SudokuConsole::Menu::clear() {
+void SudokuConsole::Menu::clear() const {
 	std::cout << "\x1B[38;5;" << fColor << "m";
 	std::cout << "\x1B[48;5;" << bColor << "m";
 	std::cout << "\x1B[H\x1B[2J\x1B[H";
@@ -155,9 +155,9 @@ int SudokuConsole::Menu::selectOption(std::vector<std::string> options) {
 
 		int input = _getch();
 		if (input == UpArrow || input == LeftArrow)
-			selected = max(selected - 1, 0);
+			selected = selected - 1 == -1 ? (int)options.size() - 1 : selected - 1;
 		else if (input == DownArrow || input == RightArrow)
-			selected = min(selected + 1, (int)options.size() - 1);
+			selected = selected + 1 == (int)options.size() ? 0 : selected + 1;
 		else if (input == EnterKey || input == SpaceKey) {
 			std::cout << "\x1B[0J";
 			return selected;
