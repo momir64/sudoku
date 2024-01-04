@@ -174,6 +174,12 @@
     <Text Include="invalid2.txt" />
     <Text Include="invalid3.txt" />
     <Text Include="invalid4.txt" />
+    <Text Include="puzzle1.txt" />
+    <Text Include="puzzle2.txt" />
+    <Text Include="puzzle3.txt" />
+    <Text Include="solution1.txt" />
+    <Text Include="solution2.txt" />
+    <Text Include="solution3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

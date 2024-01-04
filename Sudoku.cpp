@@ -1,3 +1,7 @@
+﻿/// Description: Main file, accepts CLI arguments and executes appropriate function.
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include <iostream>
 #include "SudokuGame.h"
 

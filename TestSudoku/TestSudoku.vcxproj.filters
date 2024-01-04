@@ -50,5 +50,23 @@
     <Text Include="invalid4.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="puzzle1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="puzzle2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="puzzle3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="solution1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="solution2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="solution3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

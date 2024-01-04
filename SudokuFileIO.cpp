@@ -1,3 +1,7 @@
+﻿/// Description: SudokuFileIO, module for loading and saving sudoku boards to and from files.
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include "SudokuFileIO.h"
 
 namespace SudokuFileIO {

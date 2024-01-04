@@ -1,3 +1,7 @@
+﻿/// Description: SudokuGenerator, class for generating the sudoku puzzles
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include "SudokuGenerator.h"
 
 SudokuGenerator::SudokuGenerator() {

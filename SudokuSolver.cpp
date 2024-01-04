@@ -1,19 +1,23 @@
+﻿/// Description: SudokuSolver, class for solving the sudoku puzzles
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include "SudokuSolver.h"
 
-SudokuSolver::SudokuSolver(const Sudoku9& table) {
+SudokuSolver::SudokuSolver(const Sudoku9& puzzle) {
 	std::bitset<9> rows[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	std::bitset<9> cols[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	std::bitset<9> boxes[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	this->table = table;
+	table = puzzle;
 
 	for (int row = 0; row < 9; row++) {
 		for (int col = 0; col < 9; col++) {
-			if (table.getValue(row, col)) {
-				int value = table.getValue(row, col) - 1;
+			int value = table.getValue(row, col);
+			if (value) {
 				int box = getBox(row, col);
 
 				std::bitset<9> contains = rows[row] | cols[col] | boxes[box];
-				if (contains[value]) {
+				if (contains[--value]) {
 					solved = false;
 					return;
 				}
@@ -73,10 +77,10 @@ bool SudokuSolver::solve(int row, int col, std::bitset<9> rows[], std::bitset<9>
 	return false;
 }
 
-Sudoku9 SudokuSolver::getSolution() {
+Sudoku9 SudokuSolver::getSolution() const {
 	return table;
 }
 
-bool SudokuSolver::isSolved() {
+bool SudokuSolver::isSolved() const {
 	return solved;
 }

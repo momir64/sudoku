@@ -1,3 +1,7 @@
+﻿/// Description: SudokuGame, helper module for basic program workflow
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include "SudokuGame.h"
 
 

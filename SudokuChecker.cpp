@@ -1,3 +1,7 @@
+﻿/// Description: SudokuChecker, checks the number of correct and incorrect inputs
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include "SudokuChecker.h"
 
 SudokuChecker::SudokuChecker() {

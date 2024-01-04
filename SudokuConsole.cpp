@@ -1,6 +1,11 @@
+/// Description: SudokuConsole, module for custom I/O terminal
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include "SudokuConsole.h"
 
-SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, unsigned short margin, Color frontColor, Color backColor, Color specialColor) {
+SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, unsigned short margin,
+	Color frontColor, Color backColor, Color specialColor) {
 	SetConsoleOutputCP(CP_UTF8);
 	this->margin = min(margin, width / 4);
 	this->height = height;
@@ -15,7 +20,8 @@ SudokuConsole::Menu::Menu(unsigned short width, unsigned short height, unsigned 
 	printSeparator();
 }
 
-SudokuConsole::Menu::Menu(Color frontColor, Color backColor, Color specialColor, unsigned short width, unsigned short height, unsigned short margin) :
+SudokuConsole::Menu::Menu(Color frontColor, Color backColor, Color specialColor,
+	unsigned short width, unsigned short height, unsigned short margin) :
 	Menu::Menu(width, height, margin, frontColor, backColor, specialColor) {}
 
 SudokuConsole::Menu::~Menu() {
@@ -38,29 +44,30 @@ void SudokuConsole::Menu::setWindowSize(short width, short height) {
 }
 
 void SudokuConsole::Menu::hideCursor() {
-	std::cout << "\x1B[?25l";
+	std::cout << "\x1B[?25l";  // hides cursor
 }
 
 void SudokuConsole::Menu::showCursor() {
-	std::cout << "\x1B[?25h";
+	std::cout << "\x1B[?25h";  // shows cursor
 }
 
 void SudokuConsole::Menu::clear() const {
-	std::cout << "\x1B[38;5;" << fColor << "m";
-	std::cout << "\x1B[48;5;" << bColor << "m";
-	std::cout << "\x1B[H\x1B[2J\x1B[H";
+	std::cout << "\x1B[38;5;" << fColor << "m";  // sets the foreground color
+	std::cout << "\x1B[48;5;" << bColor << "m";  // sets the background color
+	std::cout << "\x1B[H\x1B[2J\x1B[H";          // clears the screen and sets the cursor position to (0, 0)
 }
 
 void SudokuConsole::Menu::goTo(unsigned int row, unsigned int col) {
-	std::cout << "\x1B[" << row << ";" << col << "H";
+	std::cout << "\x1B[" << row << ";" << col << "H";  // sets the cursor position to 'row' and 'col'
 }
 
 std::string SudokuConsole::Menu::color(std::string text) {
+	// colors the given text with special color
 	return "\x1B[38;5;" + std::to_string(sColor) + "m" + text + "\x1B[38;5;" + std::to_string(fColor) + "m";
 }
 
 std::string SudokuConsole::Menu::underline(std::string text) {
-	return "\x1B[4m" + text + "\x1B[24m";
+	return "\x1B[4m" + text + "\x1B[24m";  // underlines the given text
 }
 
 void SudokuConsole::Menu::print(Sudoku9 solution, Sudoku9 puzzle) {
@@ -151,7 +158,7 @@ int SudokuConsole::Menu::selectOption(std::vector<std::string> options) {
 	while (true) {
 		for (int i = 0; i < options.size(); i++)
 			printEncoded(i == selected ? underline(options[i]) : options[i], (int)options[i].length());
-		std::cout << "\x1B[" << options.size() << "F";
+		std::cout << "\x1B[" << options.size() << "F";  // returns the cursor to the options beginning row
 
 		int input = _getch();
 		if (input == UpArrow || input == LeftArrow)
@@ -159,7 +166,7 @@ int SudokuConsole::Menu::selectOption(std::vector<std::string> options) {
 		else if (input == DownArrow || input == RightArrow)
 			selected = selected + 1 == (int)options.size() ? 0 : selected + 1;
 		else if (input == EnterKey || input == SpaceKey) {
-			std::cout << "\x1B[0J";
+			std::cout << "\x1B[0J";  // clears the options menu
 			return selected;
 		} else if (input == EscKey) {
 			return -1;
@@ -169,9 +176,9 @@ int SudokuConsole::Menu::selectOption(std::vector<std::string> options) {
 
 std::string SudokuConsole::Menu::getString(std::string text) {
 	showCursor();
-	std::cout << "\x1B[s" << pad(margin) << text;
+	std::cout << "\x1B[s" << pad(margin) << text;  // saves the current cursor position
 	std::cin >> text;
-	std::cout << "\x1B[u\x1B[0J";
+	std::cout << "\x1B[u\x1B[0J";                  // returns to the saved cursor position
 	hideCursor();
 	return text;
 }

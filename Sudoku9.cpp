@@ -1,3 +1,7 @@
+﻿/// Description: Sudoku9, class that contains the sudoku board.
+/// Author: Momir Stanišić
+/// Last modified: 4.1.2024.
+
 #include "Sudoku9.h"
 
 Sudoku9::Sudoku9(int puzzleNo) {
@@ -6,16 +10,16 @@ Sudoku9::Sudoku9(int puzzleNo) {
 }
 
 void Sudoku9::setValue(int row, int col, int value) {
-	if (row < 0 || row > 8) throw std::invalid_argument("Row must be less or equal to 8!");
-	if (col < 0 || col > 8) throw std::invalid_argument("Col must be less or equal to 8!");
+	if (row < 0 || row > 8) throw std::invalid_argument("Row must be between (or equal to) 0 and 8!");
+	if (col < 0 || col > 8) throw std::invalid_argument("Col must be between (or equal to) 0 and 8!");
 	if (value < 0 || value > 9) throw std::invalid_argument("Value must be less or equal to 9!");
 
 	table[row][col] = value;
 }
 
 int Sudoku9::getValue(int row, int col) const {
-	if (row < 0 || row > 8) throw std::invalid_argument("Row must be less or equal to 8!");
-	if (col < 0 || col > 8) throw std::invalid_argument("Col must be less or equal to 8!");
+	if (row < 0 || row > 8) throw std::invalid_argument("Row must be between (or equal to) 0 and 8!");
+	if (col < 0 || col > 8) throw std::invalid_argument("Col must be between (or equal to) 0 and 8!");
 
 	return table[row][col];
 }
