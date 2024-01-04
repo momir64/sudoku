@@ -18,30 +18,48 @@ bool SudokuChecker::check(const Sudoku9& puzzle, const Sudoku9& solution) {
 	correct = incorrect = 0;
 	bool solved = true;
 
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			int value = solution.getValue(i, j);
-			if (!value) {
-				solved = false;
-				continue;
-			}
+	for (int row = 0; row < 9; row++) {
+		for (int col = 0; col < 9; col++) {
+			int value = puzzle.getValue(row, col);
+			int box = (row / 3) * 3 + col / 3;
 
-			int box = (i / 3) * 3 + j / 3;
-			if (!puzzle.getValue(i, j)) {
-				if (rows[i].count(value) || cols[j].count(value) || boxes[box].count(value)) {
-					solved = false;
-					incorrect++;
-				} else
-					correct++;
-			} else if (puzzle.getValue(i, j) != value) {
+			if (!value)
+				continue;
+
+			if (rows[row].count(value) || cols[col].count(value) || boxes[box].count(value) ||
+				value != solution.getValue(row, col)) {
 				incorrect = -1;
 				correct = -1;
 				return false;
 			}
 
-			rows[i].insert(value);
-			cols[j].insert(value);
+			rows[row].insert(value);
+			cols[col].insert(value);
 			boxes[box].insert(value);
+		}
+	}
+
+	for (int row = 0; row < 9; row++) {
+		for (int col = 0; col < 9; col++) {
+			int value = solution.getValue(row, col);
+
+			if (!value) {
+				solved = false;
+				continue;
+			}
+
+			int box = (row / 3) * 3 + col / 3;
+			if (!puzzle.getValue(row, col)) {
+				if (rows[row].count(value) || cols[col].count(value) || boxes[box].count(value)) {
+					solved = false;
+					incorrect++;
+				} else {
+					correct++;
+					rows[row].insert(value);
+					cols[col].insert(value);
+					boxes[box].insert(value);
+				}
+			}
 		}
 	}
 
